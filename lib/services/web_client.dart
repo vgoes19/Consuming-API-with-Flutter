@@ -24,7 +24,7 @@ class CharacterService {
   Future<List<Character>> findCharactersPage(int page) async{
     List<Character> listCharacters = [];
     final Client client = InterceptedClient.build(interceptors: [ LoggingInterceptor() ]);
-    final Response response = await client.get(Uri.parse('https://rickandmortyapi.com/api/character?page=${page}'));
+    final Response response = await client.get(Uri.parse('https://rickandmortyapi.com/api/character?page=${page}')).timeout(const Duration(seconds: 10)); //timeout de 10 segundos
     var responseData = json.decode(response.body);
 
     for (var character in responseData["results"]) {
